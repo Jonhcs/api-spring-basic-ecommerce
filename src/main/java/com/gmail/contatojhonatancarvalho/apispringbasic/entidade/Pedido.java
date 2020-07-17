@@ -24,22 +24,21 @@ public class Pedido implements Serializable{
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
 	private Instant momento;
-	
+	private Integer pedidoStatus;
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
 	
 
-	public Pedido() {
-		// TODO Auto-generated constructor stub
-	}
+	public Pedido() {}
 
 
-	public Pedido(Long id, Instant momento, Usuario cliente) {
+	public Pedido(Long id, Instant momento, PedidoStatus pedidoStatus,Usuario cliente) {
 		super();
 		this.id = id;
 		this.momento = momento;
 		this.cliente = cliente;
+		setPedidoStatus(pedidoStatus);
 	}
 
 
@@ -60,6 +59,19 @@ public class Pedido implements Serializable{
 
 	public void setMomento(Instant momento) {
 		this.momento = momento;
+	}
+
+	
+	public PedidoStatus getPedidoStatus() {
+		return PedidoStatus.valueOf(pedidoStatus);
+	}
+
+
+	public void setPedidoStatus(PedidoStatus pedidoStatus) {
+		if (pedidoStatus != null) {
+			this.pedidoStatus = pedidoStatus.getCodigo();
+		}
+		
 	}
 
 
