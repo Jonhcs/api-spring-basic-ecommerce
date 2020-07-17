@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.Usuario;
-import com.gmail.contatojhonatancarvalho.apispringbasic.resource.UsuarioRepository;
+import com.gmail.contatojhonatancarvalho.apispringbasic.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
