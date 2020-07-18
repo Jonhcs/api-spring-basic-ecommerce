@@ -11,11 +11,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.Categoria;
+import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.Pagamento;
 import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.Pedido;
+import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.PedidoItem;
 import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.PedidoStatus;
 import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.Produto;
 import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.Usuario;
 import com.gmail.contatojhonatancarvalho.apispringbasic.repository.CategoriaRepository;
+import com.gmail.contatojhonatancarvalho.apispringbasic.repository.PedidoItemRepository;
 import com.gmail.contatojhonatancarvalho.apispringbasic.repository.PedidoRepository;
 import com.gmail.contatojhonatancarvalho.apispringbasic.repository.ProdutoRepository;
 import com.gmail.contatojhonatancarvalho.apispringbasic.repository.UsuarioRepository;
@@ -34,13 +37,16 @@ public class TesteConfig implements CommandLineRunner {
 	private CategoriaRepository categoriaRepository;
 	
 	@Autowired
+	private PedidoItemRepository pedidoItemRepository;
+	
+	@Autowired
 	private ProdutoRepository produtoRepository; 
 	@Override
 	public void run(String... args) throws Exception {
 		Usuario u1 = new Usuario(null, "Jhonatan", "contato@gmail.com", "41987859201", "123");
 		Usuario u2 = new Usuario(null, "Tiffany", "contato@gmail.com", "41987859201", "123");
 		
-		Pedido o1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.AGUARDANDO_PAGAMENTO, u1);
+		Pedido o1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), PedidoStatus.PAGO, u1);
 		Pedido o2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), PedidoStatus.CANCELADO, u2);
 		Pedido o3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"), PedidoStatus.ENTREGUE, u1);
 		
@@ -73,6 +79,18 @@ public class TesteConfig implements CommandLineRunner {
 		p5.getCategorias().add(cat2);
 		
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		
+		PedidoItem oi1 = new PedidoItem(o1, p1, 2, p1.getPreco());
+		PedidoItem oi2 = new PedidoItem(o1, p3, 1, p3.getPreco());
+		PedidoItem oi3 = new PedidoItem(o2, p3, 2, p3.getPreco());
+		PedidoItem oi4 = new PedidoItem(o3, p5, 2, p5.getPreco()); 
+		
+		pedidoItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
+		Pagamento pay1 = new Pagamento(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPagamento(pay1);
+		
+		pedidoRepository.save(o1);
 	}
 	
 }
