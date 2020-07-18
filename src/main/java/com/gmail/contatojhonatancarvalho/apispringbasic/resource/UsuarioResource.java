@@ -19,8 +19,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.Usuario;
 import com.gmail.contatojhonatancarvalho.apispringbasic.service.UsuarioService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping(value = "/usuarios")
+@Api(value = "API REST - Model Usuario")
 public class UsuarioResource {
 
 	@Autowired

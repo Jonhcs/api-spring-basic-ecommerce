@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.Produto;
 import com.gmail.contatojhonatancarvalho.apispringbasic.service.ProdutoService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping(value = "/produtos")
+@Api(value = "API REST - Model Product")
 public class ProdutoResource {
 
 	@Autowired

@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gmail.contatojhonatancarvalho.apispringbasic.entidade.Pedido;
 import com.gmail.contatojhonatancarvalho.apispringbasic.service.PedidoService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping(value = "/pedidos")
+@Api(value = "API REST - Model Pedido")
 public class PedidoResource {
 
 	@Autowired
